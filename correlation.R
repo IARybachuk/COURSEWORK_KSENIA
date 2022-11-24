@@ -1,3 +1,5 @@
+library(ggcorrplot)
+library(ggpubr)
 library(corrplot)
 library(rstatix)
 library(readr)
@@ -26,6 +28,14 @@ plot_d <- cor_disease %>%
   cor_reorder() %>%
   pull_lower_triangle() %>%
   cor_plot()
+
+corrplot_normal <- ggcorrplot(cor_normal)
+corrplot_disease <- ggcorrplot(cor_disease)
+
+ggsave(filename = "corrplot_normal.pdf", 
+       plot = corrplot_normal , scale = 50,limitsize = FALSE)
+ggsave(filename = "corrplot_disease.pdf", 
+       plot = corrplot_disease , scale = 20,limitsize = FALSE)
 
 test_normal <- cor_test(results_normal,  method = "spearman") 
 
